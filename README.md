@@ -17,7 +17,7 @@ export function configure(aurelia: Aurelia) {
 }
 ```
 
-The plugin's `configure` function expects an object with the following properties:
+The plugin expects a configuration object with the following optional properties:
 
 * **trackLogs**: enable or disable [automatic logs tracking](#automatic-logs-tracking). Default: `true`.
 * **trackGlobalErrors**: enable or disable [automatic global errors tracking](#automatic-global-errors-tracking). Default: `true`.
