@@ -30,7 +30,7 @@ it doesn't implement any client for specific telemetry technologies itself.
 
 As such, when using `aurelia-telemetry` in an Aurelia application, you must also either
 use an implementation plugin (see the [official list](#implementation-plugins)) or implement 
-your own `TelemetryClient` (see how to do this [here](#custom-telemetry-client)).
+your own `TelemetryClient`.
 
 ## Custom telemetry client
 
@@ -93,7 +93,7 @@ export function configure(aurelia: Aurelia) {
 
 ### Automatic logs tracking
 
-When enabled, all data logged using Aurelia's `LogManager` is sent to the `TelemetryClient`'s 
+When enabled, all logs passing through Aurelia's `LogManager` are sent to the `TelemetryClient`'s 
 `trackLog` method.
 
 ### Automatic global errors tracking
@@ -109,8 +109,8 @@ the navigation error.
 
 ### Event tracking
 
-Using `aurelia-telemetry`'s `trackEvent` binding behavior, you can easily make an event
-handler of any DOM element send a custom event tracking:
+Using `aurelia-telemetry`'s `trackEvent` binding behavior, you can easily make event
+handlers of any DOM element send custom event trackings:
 
 ```html
 <button click.delegate="doSomething() & trackEvent:'my-custom-event':{ someProperty: 'a value' }">Action</button>
@@ -123,8 +123,8 @@ properties.
 The event will be sent to the `TelemetryClient` *after* the `doSomething()` method is
 called. Additionally, if `doSomething()` returns a `Promise`, the call to `trackEvent` will
 be performed only when the `Promise` is resolved. Thanks to this, you can make sure that
-events tracked when a remote operation is performed won't be tracked if the remote call
-fails.
+events depending on a remote operation will be tracked only once the remote call completes
+successfully.
 
 The `trackEvent` binding behavior expects the event name as its first parameter, along with
 an optional object containing additional properties as its second parameter.
