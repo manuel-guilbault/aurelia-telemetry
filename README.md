@@ -76,7 +76,7 @@ export function configure(aurelia: Aurelia) {
     .standardConfiguration()
     .plugin('aurelia-telemetry');
 
-  aurelia.singleton(TelemetryClient, MyCustomTelemetryClient);
+  aurelia.container.registerSingleton(TelemetryClient, MyCustomTelemetryClient);
 
   aurelia.start().then(() => aurelia.setRoot());
 }
