@@ -14,15 +14,12 @@ export function configure(aurelia, config) {
     aurelia.globalResources(['./track-event-binding-behavior']);
     config = Object.assign({}, config || {}, defaultConfiguration);
     if (config.trackLogs) {
-        var logAppender = aurelia.container.get(LogAppender);
-        LogManager.addAppender(logAppender);
+        aurelia.postTask(function () { LogManager.addAppender(aurelia.container.get(LogAppender)); });
     }
     if (config.trackGlobalErrors) {
-        var globalErrorTracker = aurelia.container.get(GlobalErrorTracker);
-        globalErrorTracker.activate();
+        aurelia.postTask(function () { aurelia.container.get(GlobalErrorTracker).activate(); });
     }
     if (config.trackPageViews) {
-        var pageViewTracker = aurelia.container.get(PageViewTracker);
-        pageViewTracker.activate();
+        aurelia.postTask(function () { aurelia.container.get(PageViewTracker).activate(); });
     }
 }

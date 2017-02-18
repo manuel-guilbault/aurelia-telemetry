@@ -5,16 +5,16 @@ define(["require", "exports", "./telemetry-client"], function (require, exports,
             this.telemetryClient = telemetryClient;
         }
         LogAppender.prototype.debug = function (logger, message) {
-            this.telemetryClient.trackTrace(message, { level: 'debug' });
+            this.telemetryClient.trackLog(message, { level: 'debug' });
         };
         LogAppender.prototype.info = function (logger, message) {
-            this.telemetryClient.trackTrace(message, { level: 'info' });
+            this.telemetryClient.trackLog(message, { level: 'info' });
         };
         LogAppender.prototype.warn = function (logger, message) {
-            this.telemetryClient.trackTrace(message, { level: 'warn' });
+            this.telemetryClient.trackLog(message, { level: 'warn' });
         };
         LogAppender.prototype.error = function (logger, message) {
-            this.telemetryClient.trackTrace(message, { level: 'error' });
+            this.telemetryClient.trackLog(message, { level: 'error' });
         };
         return LogAppender;
     }());

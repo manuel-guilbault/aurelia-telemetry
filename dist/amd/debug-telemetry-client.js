@@ -24,8 +24,8 @@ define(["require", "exports", "./telemetry-client"], function (require, exports,
         DebugTelemetryClient.prototype.trackError = function (error, properties) {
             console.log("Error", error, properties);
         };
-        DebugTelemetryClient.prototype.trackTrace = function (message, properties) {
-            console.log("TRACE " + message, properties);
+        DebugTelemetryClient.prototype.trackLog = function (message, properties) {
+            console.log("Log " + message, properties);
         };
         return DebugTelemetryClient;
     }(telemetry_client_1.TelemetryClient));
