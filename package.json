@@ -1,0 +1,127 @@
+{
+  "name": "aurelia-telemetry",
+  "version": "0.1.0",
+  "description": "Telemetry for Aurelia applications.",
+  "keywords": [
+    "telemetry",
+    "analytics",
+    "plugin",
+    "aurelia"
+  ],
+  "main": "dist/commonjs/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "lint": "cross-env tslint --project tsconfig.json",
+    "pretest": "cross-env npm run lint",
+    "test": "cross-env tsc && karma start --single-run",
+    "test-watch": "concurrently \"./node_modules/.bin/tsc --watch\" \"./node_modules/.bin/karma start\"",
+    "prebuild:amd": "cross-env rimraf dist/amd && node-sass src --output dist/amd && postcss --use autoprefixer dist/amd/*.css -d dist/amd",
+    "build:amd": "cross-env tsc --project tsconfig.build.json --outDir dist/amd --module amd",
+    "postbuild:amd": "cross-env copyfiles --up 1 src/**/*.html src/**/*.css dist/amd",
+    "prebuild:commonjs": "cross-env rimraf dist/commonjs && node-sass src --output dist/commonjs && postcss --use autoprefixer dist/commonjs/*.css -d dist/commonjs",
+    "build:commonjs": "cross-env tsc --project tsconfig.build.json --outDir dist/commonjs --module commonjs",
+    "postbuild:commonjs": "cross-env copyfiles --up 1 src/**/*.html src/**/*.css dist/commonjs",
+    "prebuild:es2015": "cross-env rimraf dist/es2015 && node-sass src --output dist/es2015 && postcss --use autoprefixer dist/es2015/*.css -d dist/es2015",
+    "build:es2015": "cross-env tsc --project tsconfig.build.json --outDir dist/es2015 --module es2015",
+    "postbuild:es2015": "cross-env copyfiles --up 1 src/**/*.html src/**/*.css dist/es2015",
+    "prebuild:system": "cross-env rimraf dist/system && node-sass src --output dist/system && postcss --use autoprefixer dist/system/*.css -d dist/system",
+    "build:system": "cross-env tsc --project tsconfig.build.json --outDir dist/system --module system",
+    "postbuild:system": "cross-env copyfiles --up 1 src/**/*.html src/**/*.css dist/system",
+    "prebuild": "cross-env rimraf dist",
+    "build": "concurrently \"npm run build:amd\" \"npm run build:commonjs\" \"npm run build:es2015\" \"npm run build:system\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manuel-guilbault/aurelia-telemetry.git"
+  },
+  "author": "Manuel Guilbault <manuel.guilbault@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/manuel-guilbault/aurelia-telemetry#readme",
+  "bugs": {
+    "url": "https://github.com/manuel-guilbault/aurelia-telemetry/issues"
+  },
+  "jspm": {
+    "registry": "npm",
+    "jspmPackage": true,
+    "main": "index",
+    "format": "amd",
+    "directories": {
+      "dist": "dist/amd"
+    },
+    "peerDependencies": {
+      "aurelia-binding": "^1.1.1",
+      "aurelia-dependency-injection": "^1.2.1",
+      "aurelia-event-aggregator": "^1.0.1",
+      "aurelia-framework": "^1.0.8",
+      "aurelia-loader": "^1.0.0",
+      "aurelia-logging": "^1.2.0",
+      "aurelia-metadata": "^1.0.3",
+      "aurelia-pal": "^1.2.0",
+      "aurelia-path": "^1.1.1",
+      "aurelia-task-queue": "^1.1.0",
+      "aurelia-templating": "^1.2.0",
+      "aurelia-templating-binding": "^1.2.0"
+    },
+    "dependencies": {
+      "aurelia-binding": "^1.1.1",
+      "aurelia-dependency-injection": "^1.2.1",
+      "aurelia-event-aggregator": "^1.0.1",
+      "aurelia-framework": "^1.0.8",
+      "aurelia-loader": "^1.0.0",
+      "aurelia-logging": "^1.2.0",
+      "aurelia-metadata": "^1.0.3",
+      "aurelia-pal": "^1.2.0",
+      "aurelia-path": "^1.1.1",
+      "aurelia-task-queue": "^1.1.0",
+      "aurelia-templating": "^1.2.0",
+      "aurelia-templating-binding": "^1.2.0"
+    },
+    "devDependencies": {}
+  },
+  "dependencies": {
+    "aurelia-binding": "^1.1.1",
+    "aurelia-dependency-injection": "^1.2.1",
+    "aurelia-event-aggregator": "^1.0.1",
+    "aurelia-framework": "^1.0.8",
+    "aurelia-loader": "^1.0.0",
+    "aurelia-logging": "^1.2.0",
+    "aurelia-metadata": "^1.0.3",
+    "aurelia-pal": "^1.2.0",
+    "aurelia-path": "^1.1.1",
+    "aurelia-task-queue": "^1.1.0",
+    "aurelia-templating": "^1.2.0",
+    "aurelia-templating-binding": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^2.5.40",
+    "@types/node": "^7.0.0",
+    "aurelia-bootstrapper": "^1.0.1",
+    "aurelia-pal-browser": "^1.1.0",
+    "aurelia-polyfills": "^1.1.1",
+    "aurelia-testing": "^1.0.0-beta.2.0.1",
+    "autoprefixer": "^6.6.1",
+    "concurrently": "^2.2.0",
+    "copyfiles": "^1.0.0",
+    "cross-env": "^2.0.1",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-ie-launcher": "^1.0.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-requirejs": "^1.1.0",
+    "node-sass": "^4.2.0",
+    "postcss-cli": "^2.6.0",
+    "requirejs": "^2.3.2",
+    "requirejs-text": "^2.0.15",
+    "rimraf": "^2.5.4",
+    "tslint": "^3.15.1",
+    "typescript": "^2.1.4"
+  },
+  "aurelia": {
+    "build": {
+      "resources": [
+        "track-event-binding-behavior"
+      ]
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "name": "aurelia-telemetry",
+  "main": "dist/amd/aurelia-telemetry.d.ts"
+}
