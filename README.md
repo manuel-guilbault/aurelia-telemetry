@@ -37,11 +37,48 @@ your own `TelemetryClient` (see how to do this [here](#custom-telemetry-client))
 A telemetry client must extend the `TelemetryClient` base class:
 
 ```typescript
-export abstract class TelemetryClient {
-  abstract trackPageView(properties: PageViewProperties): void;
-  abstract trackEvent(name: string, properties?: EventProperties): void;
-  abstract trackError(error: Error, properties?: ErrorProperties): void;
-  abstract trackLog(message: string, properties?: LogProperties): void;
+import {
+  TelemetryClient, 
+  PageViewProperties, 
+  EventProperties, 
+  ErrorProperties, 
+  LogProperties
+} from 'aurelia-telemetry';
+
+export class MyCustomTelemetryClient extends TelemetryClient {
+
+  public trackPageView(properties: PageViewProperties): void {
+    // Do your thing...
+  }
+
+  public trackEvent(name: string, properties?: EventProperties): void {
+    // Do your thing...
+  }
+
+  public trackError(error: Error, properties?: ErrorProperties): void {
+    // Do your thing...
+  }
+
+  public trackLog(message: string, properties?: LogProperties): void {
+    // Do your thing...
+  }
+}
+```
+
+Next, you need to register it during startup:
+
+```typescript
+import {TelemetryClient} from 'aurelia-telemetry';
+import {MyCustomTelemetryClient} from './my-custom-telemetry-client';
+
+export function configure(aurelia: Aurelia) {
+  aurelia.use
+    .standardConfiguration()
+    .plugin('aurelia-telemetry');
+
+  aurelia.singleton(TelemetryClient, MyCustomTelemetryClient);
+
+  aurelia.start().then(() => aurelia.setRoot());
 }
 ```
 
