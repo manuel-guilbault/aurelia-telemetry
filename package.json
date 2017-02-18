@@ -1,6 +1,6 @@
 {
   "name": "aurelia-telemetry",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Telemetry for Aurelia applications.",
   "keywords": [
     "telemetry",
@@ -9,7 +9,7 @@
     "aurelia"
   ],
   "main": "dist/commonjs/index.js",
-  "typings": "dist/index.d.ts",
+  "typings": "dist/amd/index.d.ts",
   "scripts": {
     "lint": "cross-env tslint --project tsconfig.json",
     "pretest": "cross-env npm run lint",
