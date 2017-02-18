@@ -7,18 +7,18 @@ export class LogAppender implements Appender {
   constructor(private telemetryClient: TelemetryClient) {}
 
   debug(logger: Logger, message: string) {
-    this.telemetryClient.trackTrace(message, { level: 'debug' });
+    this.telemetryClient.trackLog(message, { level: 'debug' });
   }
 
 	info(logger: Logger, message: string) {
-    this.telemetryClient.trackTrace(message, { level: 'info' });
+    this.telemetryClient.trackLog(message, { level: 'info' });
 	}
 
 	warn(logger: Logger, message: string) {
-    this.telemetryClient.trackTrace(message, { level: 'warn' });
+    this.telemetryClient.trackLog(message, { level: 'warn' });
 	}
 
 	error(logger: Logger, message: string) {
-    this.telemetryClient.trackTrace(message, { level: 'error' });
+    this.telemetryClient.trackLog(message, { level: 'error' });
 	}
 }

@@ -1,4 +1,4 @@
-import {TelemetryClient, PageViewProperties, EventProperties, ErrorProperties, TraceProperties} from './telemetry-client';
+import {TelemetryClient, PageViewProperties, EventProperties, ErrorProperties, LogProperties} from './telemetry-client';
 
 export class DebugTelemetryClient extends TelemetryClient {
 
@@ -10,11 +10,11 @@ export class DebugTelemetryClient extends TelemetryClient {
     console.log(`Event '${name}'`, properties);
   }
 
-  trackError(error: Error, properties?: ErrorProperties) {
+  trackError(error: Error | string, properties?: ErrorProperties) {
     console.log(`Error`, error, properties);
   }
 
-  trackTrace(message: string, properties?: TraceProperties) {
-    console.log(`TRACE ${message}`, properties);
+  trackLog(message: string, properties?: LogProperties) {
+    console.log(`Log ${message}`, properties);
   }
 }
