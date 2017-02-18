@@ -16,17 +16,14 @@ export function configure(aurelia: FrameworkConfiguration, config?: Configuratio
   aurelia.globalResources(['./track-event-binding-behavior']);
   
   config = Object.assign({}, config || {}, defaultConfiguration);
-  
+
   if (config.trackLogs) {
-    const logAppender = <LogAppender>aurelia.container.get(LogAppender);
-    LogManager.addAppender(logAppender);
+    aurelia.postTask(() => { LogManager.addAppender(aurelia.container.get(LogAppender)); });
   }
   if (config.trackGlobalErrors) {
-    const globalErrorTracker = <GlobalErrorTracker>aurelia.container.get(GlobalErrorTracker);
-    globalErrorTracker.activate();
+    aurelia.postTask(() => { aurelia.container.get(GlobalErrorTracker).activate(); });
   }
   if (config.trackPageViews) {
-    const pageViewTracker = <PageViewTracker>aurelia.container.get(PageViewTracker);
-    pageViewTracker.activate();
+    aurelia.postTask(() => { aurelia.container.get(PageViewTracker).activate(); });
   }
 }
