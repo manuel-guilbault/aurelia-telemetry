@@ -1,4 +1,14 @@
 "use strict";
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+__export(require("./configuration"));
+__export(require("./debug-telemetry-client"));
+__export(require("./global-error-tracker"));
+__export(require("./log-appender"));
+__export(require("./page-view-tracker"));
+__export(require("./telemetry-client"));
+__export(require("./track-event-binding-behavior"));
 var aurelia_framework_1 = require("aurelia-framework");
 var configuration_1 = require("./configuration");
 var log_appender_1 = require("./log-appender");
