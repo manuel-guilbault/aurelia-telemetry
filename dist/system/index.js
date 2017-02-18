@@ -2,7 +2,7 @@ System.register(["./configuration", "./debug-telemetry-client", "./global-error-
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function configure(aurelia, config) {
-        aurelia.globalResources(['./track-event']);
+        aurelia.globalResources(['./track-event-binding-behavior']);
         config = Object.assign({}, config || {}, configuration_1.defaultConfiguration);
         if (config.trackLogs) {
             var logAppender = aurelia.container.get(log_appender_1.LogAppender);

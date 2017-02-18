@@ -13,7 +13,7 @@ import {GlobalErrorTracker} from './global-error-tracker';
 import {PageViewTracker} from './page-view-tracker';
 
 export function configure(aurelia: FrameworkConfiguration, config?: Configuration) {
-  aurelia.globalResources(['./track-event']);
+  aurelia.globalResources(['./track-event-binding-behavior']);
   
   config = Object.assign({}, config || {}, defaultConfiguration);
   

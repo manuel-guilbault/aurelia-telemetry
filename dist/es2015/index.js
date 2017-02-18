@@ -11,7 +11,7 @@ import { LogAppender } from './log-appender';
 import { GlobalErrorTracker } from './global-error-tracker';
 import { PageViewTracker } from './page-view-tracker';
 export function configure(aurelia, config) {
-    aurelia.globalResources(['./track-event']);
+    aurelia.globalResources(['./track-event-binding-behavior']);
     config = Object.assign({}, config || {}, defaultConfiguration);
     if (config.trackLogs) {
         var logAppender = aurelia.container.get(LogAppender);

@@ -15,7 +15,7 @@ var log_appender_1 = require("./log-appender");
 var global_error_tracker_1 = require("./global-error-tracker");
 var page_view_tracker_1 = require("./page-view-tracker");
 function configure(aurelia, config) {
-    aurelia.globalResources(['./track-event']);
+    aurelia.globalResources(['./track-event-binding-behavior']);
     config = Object.assign({}, config || {}, configuration_1.defaultConfiguration);
     if (config.trackLogs) {
         var logAppender = aurelia.container.get(log_appender_1.LogAppender);

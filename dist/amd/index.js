@@ -11,7 +11,7 @@ define(["require", "exports", "./configuration", "./debug-telemetry-client", "./
     __export(telemetry_client_1);
     __export(track_event_binding_behavior_1);
     function configure(aurelia, config) {
-        aurelia.globalResources(['./track-event']);
+        aurelia.globalResources(['./track-event-binding-behavior']);
         config = Object.assign({}, config || {}, configuration_2.defaultConfiguration);
         if (config.trackLogs) {
             var logAppender = aurelia.container.get(log_appender_2.LogAppender);
