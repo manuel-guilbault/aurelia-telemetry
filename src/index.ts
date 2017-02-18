@@ -1,5 +1,12 @@
-import {FrameworkConfiguration, LogManager} from 'aurelia-framework';
+export * from './configuration';
+export * from './debug-telemetry-client';
+export * from './global-error-tracker';
+export * from './log-appender';
+export * from './page-view-tracker';
+export * from './telemetry-client';
+export * from './track-event-binding-behavior';
 
+import {FrameworkConfiguration, LogManager} from 'aurelia-framework';
 import {Configuration, defaultConfiguration} from './configuration';
 import {LogAppender} from './log-appender';
 import {GlobalErrorTracker} from './global-error-tracker';
