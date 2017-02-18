@@ -2,6 +2,6 @@ import { TelemetryClient, PageViewProperties, EventProperties, ErrorProperties, 
 export declare class DebugTelemetryClient extends TelemetryClient {
     trackPageView(properties: PageViewProperties): void;
     trackEvent(name: string, properties?: EventProperties): void;
-    trackError(error: Error | string, properties?: ErrorProperties): void;
+    trackError(error: Error, properties?: ErrorProperties): void;
     trackLog(message: string, properties?: LogProperties): void;
 }

@@ -5,7 +5,12 @@ define(["require", "exports", "./telemetry-client"], function (require, exports,
             var _this = this;
             this.telemetryClient = telemetryClient;
             this.onUnhandledError = function (e) {
-                _this.telemetryClient.trackError(e.error || e.message);
+                if (e.error) {
+                    _this.telemetryClient.trackError(e.error);
+                }
+                else {
+                    _this.telemetryClient.trackLog(e.message, { level: 'error' });
+                }
             };
         }
         GlobalErrorTracker.prototype.activate = function () {

@@ -10,7 +10,7 @@ export class DebugTelemetryClient extends TelemetryClient {
     console.log(`Event '${name}'`, properties);
   }
 
-  trackError(error: Error | string, properties?: ErrorProperties) {
+  trackError(error: Error, properties?: ErrorProperties) {
     console.log(`Error`, error, properties);
   }
 

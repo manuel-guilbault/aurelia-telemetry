@@ -1,7 +1,7 @@
 export declare abstract class TelemetryClient {
     abstract trackPageView(properties: PageViewProperties): void;
     abstract trackEvent(name: string, properties?: EventProperties): void;
-    abstract trackError(error: Error | string, properties?: ErrorProperties): void;
+    abstract trackError(error: Error, properties?: ErrorProperties): void;
     abstract trackLog(message: string, properties?: LogProperties): void;
 }
 export interface PageViewProperties {

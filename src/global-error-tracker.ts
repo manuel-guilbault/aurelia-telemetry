@@ -18,6 +18,10 @@ export class GlobalErrorTracker {
   }
 
   private onUnhandledError = (e: ErrorEvent) => {
-    this.telemetryClient.trackError(e.error || e.message);
+    if (e.error) {
+      this.telemetryClient.trackError(e.error);
+    } else {
+      this.telemetryClient.trackLog(e.message, { level: 'error' });
+    }
   };
 }
