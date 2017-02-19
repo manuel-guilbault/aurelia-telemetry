@@ -1,3 +1,4 @@
+import { logLevel } from 'aurelia-logging';
 import { TelemetryClient } from './telemetry-client';
 var GlobalErrorTracker = (function () {
     function GlobalErrorTracker(telemetryClient) {
@@ -8,7 +9,7 @@ var GlobalErrorTracker = (function () {
                 _this.telemetryClient.trackError(e.error);
             }
             else {
-                _this.telemetryClient.trackLog(e.message, { level: 'error' });
+                _this.telemetryClient.trackLog(e.message, logLevel.error);
             }
         };
     }

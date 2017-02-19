@@ -37,29 +37,23 @@ your own `TelemetryClient`.
 A telemetry client must extend the `TelemetryClient` base class:
 
 ```typescript
-import {
-  TelemetryClient, 
-  PageViewProperties, 
-  EventProperties, 
-  ErrorProperties, 
-  LogProperties
-} from 'aurelia-telemetry';
+import {TelemetryClient} from 'aurelia-telemetry';
 
 export class MyCustomTelemetryClient extends TelemetryClient {
 
-  public trackPageView(properties: PageViewProperties): void {
+  public trackPageView(path: string): void {
     // Do your thing...
   }
 
-  public trackEvent(name: string, properties?: EventProperties): void {
+  public trackEvent(name: string, erties?: { [key: string]: any }): void {
     // Do your thing...
   }
 
-  public trackError(error: Error, properties?: ErrorProperties): void {
+  public trackError(error: Error): void {
     // Do your thing...
   }
 
-  public trackLog(message: string, properties?: LogProperties): void {
+  public trackLog(message: string, level: number, ...args: any[]): void {
     // Do your thing...
   }
 }

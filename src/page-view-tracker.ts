@@ -22,9 +22,7 @@ export class PageViewTracker {
   }
 
   private onNavigationSuccess = (e: any) => {
-    this.telemetryClient.trackPageView({
-      path: e.instruction.fragment,
-    });
+    this.telemetryClient.trackPageView(e.instruction.fragment);
   };
 
   private onNavigationError = (e: any) => {

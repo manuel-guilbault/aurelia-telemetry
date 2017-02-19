@@ -10,16 +10,20 @@ define(["require", "exports"], function (require, exports) {
     var TelemetryClient = (function () {
         function TelemetryClient() {
         }
-        TelemetryClient.prototype.trackPageView = function (properties) {
+        TelemetryClient.prototype.trackPageView = function (path) {
             warnNoImplementation();
         };
         TelemetryClient.prototype.trackEvent = function (name, properties) {
             warnNoImplementation();
         };
-        TelemetryClient.prototype.trackError = function (error, properties) {
+        TelemetryClient.prototype.trackError = function (error) {
             warnNoImplementation();
         };
-        TelemetryClient.prototype.trackLog = function (message, properties) {
+        TelemetryClient.prototype.trackLog = function (message, level) {
+            var args = [];
+            for (var _i = 2; _i < arguments.length; _i++) {
+                args[_i - 2] = arguments[_i];
+            }
             warnNoImplementation();
         };
         return TelemetryClient;

@@ -1,9 +1,12 @@
-System.register(["./telemetry-client"], function (exports_1, context_1) {
+System.register(["aurelia-logging", "./telemetry-client"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var telemetry_client_1, GlobalErrorTracker;
+    var aurelia_logging_1, telemetry_client_1, GlobalErrorTracker;
     return {
         setters: [
+            function (aurelia_logging_1_1) {
+                aurelia_logging_1 = aurelia_logging_1_1;
+            },
             function (telemetry_client_1_1) {
                 telemetry_client_1 = telemetry_client_1_1;
             }
@@ -18,7 +21,7 @@ System.register(["./telemetry-client"], function (exports_1, context_1) {
                             _this.telemetryClient.trackError(e.error);
                         }
                         else {
-                            _this.telemetryClient.trackLog(e.message, { level: 'error' });
+                            _this.telemetryClient.trackLog(e.message, aurelia_logging_1.logLevel.error);
                         }
                     };
                 }

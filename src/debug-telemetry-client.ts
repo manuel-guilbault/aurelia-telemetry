@@ -1,20 +1,27 @@
-import {TelemetryClient, PageViewProperties, EventProperties, ErrorProperties, LogProperties} from './telemetry-client';
+import {logLevel} from 'aurelia-logging';
+import {TelemetryClient} from './telemetry-client';
+
+const levelMap = new Map<number, string>();
+levelMap.set(logLevel.debug, 'DEBUG');
+levelMap.set(logLevel.info, 'INFO');
+levelMap.set(logLevel.warn, 'WARN');
+levelMap.set(logLevel.error, 'ERROR');
 
 export class DebugTelemetryClient extends TelemetryClient {
 
-  trackPageView(properties: PageViewProperties) {
-    console.log(`Page view`, properties);
+  trackPageView(path: string) {
+    console.log(`Page view '${path}'`);
   }
 
-  trackEvent(name: string, properties?: EventProperties) {
+  trackEvent(name: string, properties?: { [key: string]: any }) {
     console.log(`Event '${name}'`, properties);
   }
 
-  trackError(error: Error, properties?: ErrorProperties) {
-    console.log(`Error`, error, properties);
+  trackError(error: Error) {
+    console.log(`Error`, error);
   }
 
-  trackLog(message: string, properties?: LogProperties) {
-    console.log(`Log ${message}`, properties);
+  trackLog(message: string, level: number, ...args: any[]) {
+    console.log(`Log [${levelMap.get(level)}]: ${message}`, args);
   }
 }

@@ -1,7 +1,9 @@
-import { TelemetryClient, PageViewProperties, EventProperties, ErrorProperties, LogProperties } from './telemetry-client';
+import { TelemetryClient } from './telemetry-client';
 export declare class DebugTelemetryClient extends TelemetryClient {
-    trackPageView(properties: PageViewProperties): void;
-    trackEvent(name: string, properties?: EventProperties): void;
-    trackError(error: Error, properties?: ErrorProperties): void;
-    trackLog(message: string, properties?: LogProperties): void;
+    trackPageView(path: string): void;
+    trackEvent(name: string, properties?: {
+        [key: string]: any;
+    }): void;
+    trackError(error: Error): void;
+    trackLog(message: string, level: number, ...args: any[]): void;
 }

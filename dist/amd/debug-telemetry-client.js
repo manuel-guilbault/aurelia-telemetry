@@ -8,24 +8,33 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./telemetry-client"], function (require, exports, telemetry_client_1) {
+define(["require", "exports", "aurelia-logging", "./telemetry-client"], function (require, exports, aurelia_logging_1, telemetry_client_1) {
     "use strict";
+    var levelMap = new Map();
+    levelMap.set(aurelia_logging_1.logLevel.debug, 'DEBUG');
+    levelMap.set(aurelia_logging_1.logLevel.info, 'INFO');
+    levelMap.set(aurelia_logging_1.logLevel.warn, 'WARN');
+    levelMap.set(aurelia_logging_1.logLevel.error, 'ERROR');
     var DebugTelemetryClient = (function (_super) {
         __extends(DebugTelemetryClient, _super);
         function DebugTelemetryClient() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DebugTelemetryClient.prototype.trackPageView = function (properties) {
-            console.log("Page view", properties);
+        DebugTelemetryClient.prototype.trackPageView = function (path) {
+            console.log("Page view '" + path + "'");
         };
         DebugTelemetryClient.prototype.trackEvent = function (name, properties) {
             console.log("Event '" + name + "'", properties);
         };
-        DebugTelemetryClient.prototype.trackError = function (error, properties) {
-            console.log("Error", error, properties);
+        DebugTelemetryClient.prototype.trackError = function (error) {
+            console.log("Error", error);
         };
-        DebugTelemetryClient.prototype.trackLog = function (message, properties) {
-            console.log("Log " + message, properties);
+        DebugTelemetryClient.prototype.trackLog = function (message, level) {
+            var args = [];
+            for (var _i = 2; _i < arguments.length; _i++) {
+                args[_i - 2] = arguments[_i];
+            }
+            console.log("Log [" + levelMap.get(level) + "]: " + message, args);
         };
         return DebugTelemetryClient;
     }(telemetry_client_1.TelemetryClient));

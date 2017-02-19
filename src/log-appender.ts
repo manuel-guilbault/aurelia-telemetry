@@ -1,4 +1,4 @@
-import {Appender, Logger} from 'aurelia-logging';
+import {Appender, Logger, logLevel} from 'aurelia-logging';
 import {TelemetryClient} from './telemetry-client';
 
 export class LogAppender implements Appender {
@@ -6,19 +6,19 @@ export class LogAppender implements Appender {
 
   constructor(private telemetryClient: TelemetryClient) {}
 
-  debug(logger: Logger, message: string) {
-    this.telemetryClient.trackLog(message, { level: 'debug' });
+  debug(logger: Logger, message: string, ...rest: any[]) {
+    this.telemetryClient.trackLog(message, logLevel.debug, ...rest);
   }
 
-	info(logger: Logger, message: string) {
-    this.telemetryClient.trackLog(message, { level: 'info' });
+	info(logger: Logger, message: string, ...rest: any[]) {
+    this.telemetryClient.trackLog(message, logLevel.info, ...rest);
 	}
 
-	warn(logger: Logger, message: string) {
-    this.telemetryClient.trackLog(message, { level: 'warn' });
+	warn(logger: Logger, message: string, ...rest: any[]) {
+    this.telemetryClient.trackLog(message, logLevel.warn, ...rest);
 	}
 
-	error(logger: Logger, message: string) {
-    this.telemetryClient.trackLog(message, { level: 'error' });
+	error(logger: Logger, message: string, ...rest: any[]) {
+    this.telemetryClient.trackLog(message, logLevel.error, ...rest);
 	}
 }

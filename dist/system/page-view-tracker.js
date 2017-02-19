@@ -19,9 +19,7 @@ System.register(["aurelia-event-aggregator", "./telemetry-client"], function (ex
                     this.telemetryClient = telemetryClient;
                     this.eventSubscriptions = [];
                     this.onNavigationSuccess = function (e) {
-                        _this.telemetryClient.trackPageView({
-                            path: e.instruction.fragment,
-                        });
+                        _this.telemetryClient.trackPageView(e.instruction.fragment);
                     };
                     this.onNavigationError = function (e) {
                         _this.telemetryClient.trackError(e.result.output);

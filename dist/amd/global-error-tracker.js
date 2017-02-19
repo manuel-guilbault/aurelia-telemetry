@@ -1,4 +1,4 @@
-define(["require", "exports", "./telemetry-client"], function (require, exports, telemetry_client_1) {
+define(["require", "exports", "aurelia-logging", "./telemetry-client"], function (require, exports, aurelia_logging_1, telemetry_client_1) {
     "use strict";
     var GlobalErrorTracker = (function () {
         function GlobalErrorTracker(telemetryClient) {
@@ -9,7 +9,7 @@ define(["require", "exports", "./telemetry-client"], function (require, exports,
                     _this.telemetryClient.trackError(e.error);
                 }
                 else {
-                    _this.telemetryClient.trackLog(e.message, { level: 'error' });
+                    _this.telemetryClient.trackLog(e.message, aurelia_logging_1.logLevel.error);
                 }
             };
         }

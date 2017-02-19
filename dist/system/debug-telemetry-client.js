@@ -1,4 +1,4 @@
-System.register(["./telemetry-client"], function (exports_1, context_1) {
+System.register(["aurelia-logging", "./telemetry-client"], function (exports_1, context_1) {
     "use strict";
     var __extends = (this && this.__extends) || (function () {
         var extendStatics = Object.setPrototypeOf ||
@@ -11,30 +11,42 @@ System.register(["./telemetry-client"], function (exports_1, context_1) {
         };
     })();
     var __moduleName = context_1 && context_1.id;
-    var telemetry_client_1, DebugTelemetryClient;
+    var aurelia_logging_1, telemetry_client_1, levelMap, DebugTelemetryClient;
     return {
         setters: [
+            function (aurelia_logging_1_1) {
+                aurelia_logging_1 = aurelia_logging_1_1;
+            },
             function (telemetry_client_1_1) {
                 telemetry_client_1 = telemetry_client_1_1;
             }
         ],
         execute: function () {
+            levelMap = new Map();
+            levelMap.set(aurelia_logging_1.logLevel.debug, 'DEBUG');
+            levelMap.set(aurelia_logging_1.logLevel.info, 'INFO');
+            levelMap.set(aurelia_logging_1.logLevel.warn, 'WARN');
+            levelMap.set(aurelia_logging_1.logLevel.error, 'ERROR');
             DebugTelemetryClient = (function (_super) {
                 __extends(DebugTelemetryClient, _super);
                 function DebugTelemetryClient() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
-                DebugTelemetryClient.prototype.trackPageView = function (properties) {
-                    console.log("Page view", properties);
+                DebugTelemetryClient.prototype.trackPageView = function (path) {
+                    console.log("Page view '" + path + "'");
                 };
                 DebugTelemetryClient.prototype.trackEvent = function (name, properties) {
                     console.log("Event '" + name + "'", properties);
                 };
-                DebugTelemetryClient.prototype.trackError = function (error, properties) {
-                    console.log("Error", error, properties);
+                DebugTelemetryClient.prototype.trackError = function (error) {
+                    console.log("Error", error);
                 };
-                DebugTelemetryClient.prototype.trackLog = function (message, properties) {
-                    console.log("Log " + message, properties);
+                DebugTelemetryClient.prototype.trackLog = function (message, level) {
+                    var args = [];
+                    for (var _i = 2; _i < arguments.length; _i++) {
+                        args[_i - 2] = arguments[_i];
+                    }
+                    console.log("Log [" + levelMap.get(level) + "]: " + message, args);
                 };
                 return DebugTelemetryClient;
             }(telemetry_client_1.TelemetryClient));

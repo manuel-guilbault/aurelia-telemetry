@@ -1,11 +1,11 @@
-import {TelemetryClient, EventProperties} from './telemetry-client';
+import {TelemetryClient} from './telemetry-client';
 
 export class TrackEventBindingBehavior {
   public static inject = [TelemetryClient];
 
   constructor(private telemetryClient: TelemetryClient) {}
 
-  bind(binding: any, scope: any, name: string, properties?: EventProperties) {
+  bind(binding: any, scope: any, name: string, properties?: { [key: string]: any }) {
     if (!binding.callSource) return;
 
     binding.standardCallSource = binding.callSource;
