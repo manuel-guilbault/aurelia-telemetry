@@ -1,28 +1,27 @@
-import {logLevel} from 'aurelia-logging';
 import {TelemetryClient} from './telemetry-client';
 
 export class GlobalErrorTracker {
   public static inject = [TelemetryClient];
 
-  constructor(private telemetryClient: TelemetryClient) {}
+  private window: Window;
+
+  constructor(private telemetryClient: TelemetryClient, w?: Window) {
+    this.window = w || window;
+  }
 
   activate() {
-    if (window) {
-      window.addEventListener('error', this.onUnhandledError);
+    if (this.window) {
+      this.window.addEventListener('error', this.onUnhandledError);
     }
   }
 
   deactivate() {
-    if (window) {
-      window.removeEventListener('error', this.onUnhandledError);
+    if (this.window) {
+      this.window.removeEventListener('error', this.onUnhandledError);
     }
   }
 
   private onUnhandledError = (e: ErrorEvent) => {
-    if (e.error) {
-      this.telemetryClient.trackError(e.error);
-    } else {
-      this.telemetryClient.trackLog(e.message, logLevel.error);
-    }
+    this.telemetryClient.trackError(e.error || e.message);
   };
 }

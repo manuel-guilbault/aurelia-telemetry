@@ -16,7 +16,7 @@ export class TelemetryClient {
     warnNoImplementation();
   }
 
-  public trackError(error: Error): void {
+  public trackError(error: Error | string): void {
     warnNoImplementation();
   }
 

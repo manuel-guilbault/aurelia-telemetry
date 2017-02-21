@@ -9,19 +9,26 @@ levelMap.set(logLevel.error, 'ERROR');
 
 export class DebugTelemetryClient extends TelemetryClient {
 
+  private console: Console;
+
+  constructor(console?: Console) {
+    super();
+    this.console = console || window.console;
+  }
+
   trackPageView(path: string) {
-    console.log(`Page view '${path}'`);
+    this.console.log(`Page view '${path}'`);
   }
 
   trackEvent(name: string, properties?: { [key: string]: any }) {
-    console.log(`Event '${name}'`, properties);
+    this.console.log(`Event '${name}'`, properties);
   }
 
-  trackError(error: Error) {
-    console.log(`Error`, error);
+  trackError(error: Error | string) {
+    this.console.log(`Error`, error);
   }
 
   trackLog(message: string, level: number, ...args: any[]) {
-    console.log(`Log [${levelMap.get(level)}]: ${message}`, args);
+    this.console.log(`Log [${levelMap.get(level)}]: ${message}`, ...args);
   }
 }
