@@ -3,53 +3,53 @@ import { Aurelia } from 'aurelia-framework';
 import { bootstrap } from 'aurelia-bootstrapper';
 import { TelemetryClient } from '../../src/telemetry-client';
 
-interface ViewModel {
-  name: string;
-  properties: { [name: string]: any };
-  doSomething: () => void;
-}
+class PromiseMock<T> {
 
-class PromiseMock<T> extends Promise<T> {
-
+  promise: Promise<T>;
   resolve: (result?: T) => void;
   reject: (reason?: any) => void;
 
   constructor() {
-    super((resolve, reject) => {
+    this.promise = new Promise<T>((resolve, reject) => {
       this.resolve = resolve;
       this.reject = reject;
     });
   }
 }
 
-describe('LogAppender', () => {
+describe('track-event-binding-behavior', () => {
 
   let
     telemetryClientSpy: TelemetryClient,
-    viewModel: ViewModel,
+    viewModel: {
+      doSomething: jasmine.Spy;
+      name: string;
+      properties: { [name: string]: any };
+    },
     component: ComponentTester,
     button: HTMLButtonElement;
 
   beforeEach(() => {
-    telemetryClientSpy = jasmine.createSpyObj('TelemetryClient', ['trackPageView', 'trackError']);
+    telemetryClientSpy = jasmine.createSpyObj('TelemetryClient', ['trackEvent']);
     viewModel = {
+      doSomething: jasmine.createSpy('doSomething'),
       name: 'do-something', 
       properties: { say: 'what' },
-      doSomething: jasmine.createSpy('doSomething'),
     };
     component = StageComponent
-      .withResources('src/track-event-binding-behavior')
+      .withResources('dist/test/src/track-event-binding-behavior')
       .inView('<button click.delegate="doSomething() & trackEvent:name:properties">Test</button>')
       .boundTo(viewModel);
     component.bootstrap((aurelia: Aurelia) => {
-      aurelia.container.registerInstance(TelemetryClient, telemetryClientSpy);
+      aurelia.use
+        .standardConfiguration()
+        .instance(TelemetryClient, telemetryClientSpy);
     });
   });
 
-  function stage() {
+  function create() {
     return component.create(bootstrap as any).then(() => {
-      console.log('bootstrapped!');
-      button = component.element.querySelector('button') as HTMLButtonElement;
+      button = component.element as HTMLButtonElement;
     });
   }
 
@@ -57,7 +57,7 @@ describe('LogAppender', () => {
     button.click();
   }
 
-  function expectTrackEventCalled() {
+  function expectTrackEventToHaveBeenCalled() {
     expect(telemetryClientSpy.trackEvent).toHaveBeenCalledWith(viewModel.name, viewModel.properties)
   }
 
@@ -67,7 +67,7 @@ describe('LogAppender', () => {
 
 
   it('should execute bound expression when binding triggered', done => {
-    stage()
+    create()
       .then(() => triggerBinding())
       .then(() => expect(viewModel.doSomething).toHaveBeenCalled())
       .then(done)
@@ -75,33 +75,33 @@ describe('LogAppender', () => {
   });
 
   it('should trackEvent when binding triggered', done => {
-    stage()
+    create()
       .then(() => triggerBinding())
-      .then(() => expectTrackEventCalled())
+      .then(() => expectTrackEventToHaveBeenCalled())
       .then(done)
     ;
   });
 
   it('should trackEvent only once async expression resolves when binding triggered', done => {
-    const promise = new PromiseMock<any>();
-    viewModel.doSomething = jasmine.createSpy('doSomething').and.returnValue(promise);
+    const promiseMock = new PromiseMock<any>();
+    viewModel.doSomething.and.returnValue(promiseMock.promise);
 
-    stage()
+    create()
       .then(() => triggerBinding())
       .then(() => expect(telemetryClientSpy.trackEvent).not.toHaveBeenCalled())
-      .then(() => promise.resolve())
-      .then(() => expectTrackEventCalled())
+      .then(() => promiseMock.resolve())
+      .then(() => expectTrackEventToHaveBeenCalled())
       .then(done)
     ;
   });
 
   it('should not trackEvent when async expression is rejected when binding triggered', done => {
-    const promise = new PromiseMock<any>();
-    viewModel.doSomething = jasmine.createSpy('doSomething').and.returnValue(promise);
+    const promiseMock = new PromiseMock<any>();
+    viewModel.doSomething.and.returnValue(promiseMock.promise);
 
-    stage()
+    create()
       .then(() => triggerBinding())
-      .then(() => promise.reject())
+      .then(() => promiseMock.reject())
       .then(() => expect(telemetryClientSpy.trackEvent).not.toHaveBeenCalled())
       .then(done)
     ;
