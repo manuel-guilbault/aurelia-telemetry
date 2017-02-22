@@ -3,6 +3,6 @@ export declare class TelemetryClient {
     trackEvent(name: string, properties?: {
         [key: string]: any;
     }): void;
-    trackError(error: Error): void;
+    trackError(error: Error | string): void;
     trackLog(message: string, level: number, ...args: any[]): void;
 }

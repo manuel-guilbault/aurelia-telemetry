@@ -1,6 +1,6 @@
 {
   "name": "aurelia-telemetry",
-  "version": "0.1.6",
+  "version": "1.0.0-beta-1",
   "description": "Telemetry for Aurelia applications.",
   "keywords": [
     "telemetry",

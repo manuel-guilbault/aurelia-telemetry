@@ -10,16 +10,20 @@ define(["require", "exports", "./configuration", "./debug-telemetry-client", "./
     __export(page_view_tracker_1);
     __export(telemetry_client_1);
     __export(track_event_binding_behavior_1);
-    function configure(aurelia, config) {
+    function configure(aurelia, callback) {
         aurelia.globalResources(['./track-event-binding-behavior']);
-        config = Object.assign({}, config || {}, configuration_2.defaultConfiguration);
-        if (config.trackLogs) {
+        var builder = new configuration_2.ConfigurationBuilderImpl();
+        if (callback) {
+            callback(builder);
+        }
+        var configuration = builder.create();
+        if (configuration.doTrackLogs) {
             aurelia.postTask(function () { aurelia_framework_1.LogManager.addAppender(aurelia.container.get(log_appender_2.LogAppender)); });
         }
-        if (config.trackGlobalErrors) {
+        if (configuration.doTrackGlobalErrors) {
             aurelia.postTask(function () { aurelia.container.get(global_error_tracker_2.GlobalErrorTracker).activate(); });
         }
-        if (config.trackPageViews) {
+        if (configuration.doTrackPageViews) {
             aurelia.postTask(function () { aurelia.container.get(page_view_tracker_2.PageViewTracker).activate(); });
         }
     }

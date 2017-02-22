@@ -1,16 +1,20 @@
 System.register(["./configuration", "./debug-telemetry-client", "./global-error-tracker", "./log-appender", "./page-view-tracker", "./telemetry-client", "./track-event-binding-behavior", "aurelia-framework"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    function configure(aurelia, config) {
+    function configure(aurelia, callback) {
         aurelia.globalResources(['./track-event-binding-behavior']);
-        config = Object.assign({}, config || {}, configuration_1.defaultConfiguration);
-        if (config.trackLogs) {
+        var builder = new configuration_1.ConfigurationBuilderImpl();
+        if (callback) {
+            callback(builder);
+        }
+        var configuration = builder.create();
+        if (configuration.doTrackLogs) {
             aurelia.postTask(function () { aurelia_framework_1.LogManager.addAppender(aurelia.container.get(log_appender_1.LogAppender)); });
         }
-        if (config.trackGlobalErrors) {
+        if (configuration.doTrackGlobalErrors) {
             aurelia.postTask(function () { aurelia.container.get(global_error_tracker_1.GlobalErrorTracker).activate(); });
         }
-        if (config.trackPageViews) {
+        if (configuration.doTrackPageViews) {
             aurelia.postTask(function () { aurelia.container.get(page_view_tracker_1.PageViewTracker).activate(); });
         }
     }

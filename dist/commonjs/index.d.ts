@@ -6,5 +6,5 @@ export * from './page-view-tracker';
 export * from './telemetry-client';
 export * from './track-event-binding-behavior';
 import { FrameworkConfiguration } from 'aurelia-framework';
-import { Configuration } from './configuration';
-export declare function configure(aurelia: FrameworkConfiguration, config?: Configuration): void;
+import { ConfigurationBuilder } from './configuration';
+export declare function configure(aurelia: FrameworkConfiguration, callback?: ((c: ConfigurationBuilder) => void)): void;

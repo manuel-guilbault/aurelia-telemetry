@@ -18,24 +18,27 @@ levelMap.set(aurelia_logging_1.logLevel.warn, 'WARN');
 levelMap.set(aurelia_logging_1.logLevel.error, 'ERROR');
 var DebugTelemetryClient = (function (_super) {
     __extends(DebugTelemetryClient, _super);
-    function DebugTelemetryClient() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function DebugTelemetryClient(console) {
+        var _this = _super.call(this) || this;
+        _this.console = console || window.console;
+        return _this;
     }
     DebugTelemetryClient.prototype.trackPageView = function (path) {
-        console.log("Page view '" + path + "'");
+        this.console.log("Page view '" + path + "'");
     };
     DebugTelemetryClient.prototype.trackEvent = function (name, properties) {
-        console.log("Event '" + name + "'", properties);
+        this.console.log("Event '" + name + "'", properties);
     };
     DebugTelemetryClient.prototype.trackError = function (error) {
-        console.log("Error", error);
+        this.console.log("Error", error);
     };
     DebugTelemetryClient.prototype.trackLog = function (message, level) {
         var args = [];
         for (var _i = 2; _i < arguments.length; _i++) {
             args[_i - 2] = arguments[_i];
         }
-        console.log("Log [" + levelMap.get(level) + "]: " + message, args);
+        (_a = this.console).log.apply(_a, ["Log [" + levelMap.get(level) + "]: " + message].concat(args));
+        var _a;
     };
     return DebugTelemetryClient;
 }(telemetry_client_1.TelemetryClient));

@@ -6,20 +6,24 @@ export * from './page-view-tracker';
 export * from './telemetry-client';
 export * from './track-event-binding-behavior';
 import { LogManager } from 'aurelia-framework';
-import { defaultConfiguration } from './configuration';
+import { ConfigurationBuilderImpl } from './configuration';
 import { LogAppender } from './log-appender';
 import { GlobalErrorTracker } from './global-error-tracker';
 import { PageViewTracker } from './page-view-tracker';
-export function configure(aurelia, config) {
+export function configure(aurelia, callback) {
     aurelia.globalResources(['./track-event-binding-behavior']);
-    config = Object.assign({}, config || {}, defaultConfiguration);
-    if (config.trackLogs) {
+    var builder = new ConfigurationBuilderImpl();
+    if (callback) {
+        callback(builder);
+    }
+    var configuration = builder.create();
+    if (configuration.doTrackLogs) {
         aurelia.postTask(function () { LogManager.addAppender(aurelia.container.get(LogAppender)); });
     }
-    if (config.trackGlobalErrors) {
+    if (configuration.doTrackGlobalErrors) {
         aurelia.postTask(function () { aurelia.container.get(GlobalErrorTracker).activate(); });
     }
-    if (config.trackPageViews) {
+    if (configuration.doTrackPageViews) {
         aurelia.postTask(function () { aurelia.container.get(PageViewTracker).activate(); });
     }
 }

@@ -1,27 +1,22 @@
 "use strict";
-var aurelia_logging_1 = require("aurelia-logging");
 var telemetry_client_1 = require("./telemetry-client");
 var GlobalErrorTracker = (function () {
-    function GlobalErrorTracker(telemetryClient) {
+    function GlobalErrorTracker(telemetryClient, w) {
         var _this = this;
         this.telemetryClient = telemetryClient;
         this.onUnhandledError = function (e) {
-            if (e.error) {
-                _this.telemetryClient.trackError(e.error);
-            }
-            else {
-                _this.telemetryClient.trackLog(e.message, aurelia_logging_1.logLevel.error);
-            }
+            _this.telemetryClient.trackError(e.error || e.message);
         };
+        this.window = w || window;
     }
     GlobalErrorTracker.prototype.activate = function () {
-        if (window) {
-            window.addEventListener('error', this.onUnhandledError);
+        if (this.window) {
+            this.window.addEventListener('error', this.onUnhandledError);
         }
     };
     GlobalErrorTracker.prototype.deactivate = function () {
-        if (window) {
-            window.removeEventListener('error', this.onUnhandledError);
+        if (this.window) {
+            this.window.removeEventListener('error', this.onUnhandledError);
         }
     };
     return GlobalErrorTracker;

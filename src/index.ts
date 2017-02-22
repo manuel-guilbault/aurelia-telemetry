@@ -7,23 +7,27 @@ export * from './telemetry-client';
 export * from './track-event-binding-behavior';
 
 import {FrameworkConfiguration, LogManager} from 'aurelia-framework';
-import {Configuration, defaultConfiguration} from './configuration';
+import {ConfigurationBuilder, ConfigurationBuilderImpl} from './configuration';
 import {LogAppender} from './log-appender';
 import {GlobalErrorTracker} from './global-error-tracker';
 import {PageViewTracker} from './page-view-tracker';
 
-export function configure(aurelia: FrameworkConfiguration, config?: Configuration) {
+export function configure(aurelia: FrameworkConfiguration, callback?: ((c: ConfigurationBuilder) => void)) {
   aurelia.globalResources(['./track-event-binding-behavior']);
   
-  config = Object.assign({}, config || {}, defaultConfiguration);
+  const builder = new ConfigurationBuilderImpl();
+  if (callback) {
+    callback(builder);
+  }
+  const configuration = builder.create();
 
-  if (config.trackLogs) {
+  if (configuration.doTrackLogs) {
     aurelia.postTask(() => { LogManager.addAppender(aurelia.container.get(LogAppender)); });
   }
-  if (config.trackGlobalErrors) {
+  if (configuration.doTrackGlobalErrors) {
     aurelia.postTask(() => { aurelia.container.get(GlobalErrorTracker).activate(); });
   }
-  if (config.trackPageViews) {
+  if (configuration.doTrackPageViews) {
     aurelia.postTask(() => { aurelia.container.get(PageViewTracker).activate(); });
   }
 }

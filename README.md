@@ -1,36 +1,59 @@
 # aurelia-telemetry
-Gather telemetry data in an Aurelia application.
+
+Helps you gather telemetry data in an Aurelia application.
 
 ## Configuration
 
+Unless told otherwise, the plugin doesn't do anything automatically. However, the configuration callback 
+is passed a `ConfigurationBuilder` instance, which can be used to enable various automatic tracking features:
+
 ```typescript
+import {ConfigurationBuilder} from 'aurelia-telemetry';
+
 export function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
-    .plugin('aurelia-telemetry', {
-      trackLogs: true,
-      trackGlobalErrors: true,
-      trackPageViews: true,
+    .plugin('aurelia-telemetry', (c: ConfigurationBuilder) => {
+      // Configure the plugin here
     });
 
   aurelia.start().then(() => aurelia.setRoot());
 }
 ```
 
-The plugin expects a configuration object with the following optional properties:
+The `ConfigurationBuilder` interface has the following methods:
 
-* **trackLogs**: enable or disable [automatic logs tracking](#automatic-logs-tracking). Default: `true`.
-* **trackGlobalErrors**: enable or disable [automatic global errors tracking](#automatic-global-errors-tracking). Default: `true`.
-* **trackPageViews**: enable or disable [automatic page views tracking](#automatic-page-views-tracking). Default: `true`.
+* `trackLogs()`: enables [automatic logs tracking](#automatic-logs-tracking).
+* `trackGlobalErrors()`: enables [automatic global errors tracking](#automatic-global-errors-tracking).
+* `trackPageViews()`: enables [automatic page views tracking](#automatic-page-views-tracking).
+* `useDefault()`: enables all types of automatic tracking listed above.
+
+All those methods return the `ConfigurationBuilder` instance, so their calls can be chained.
+
+For example, to enable only global errors and page views:
+
+```typescript
+aurelia.use
+  .plugin('aurelia-telemetry', (c: ConfigurationBuilder) => {
+    c.trackGlobalErrors().trackPageViews();
+  });
+```
+
+Or to enable all types of automatic tracking:
+
+```typescript
+aurelia.use
+  .plugin('aurelia-telemetry', (c: ConfigurationBuilder) => {
+    c.useDefault();
+  });
+```
 
 ## Configuring a client implementation
 
-The `aurelia-telemetry` plugin offers some features to gather telemetry data. However,
-it doesn't implement any client for specific telemetry technologies itself.
-
+The `aurelia-telemetry` plugin doesn't implement any client for specific telemetry technologies.
 As such, when using `aurelia-telemetry` in an Aurelia application, you must also either
-use an implementation plugin (see the [official list](#implementation-plugins)) or implement 
-your own `TelemetryClient`.
+use an adapter plugin (see the [existing implementations](#implementation-plugins)) over your favorite
+telemetry provider, or implement your own `TelemetryClient`.
 
 ## Custom telemetry client
 
@@ -45,11 +68,11 @@ export class MyCustomTelemetryClient extends TelemetryClient {
     // Do your thing...
   }
 
-  public trackEvent(name: string, erties?: { [key: string]: any }): void {
+  public trackEvent(name: string, properties?: { [key: string]: any }): void {
     // Do your thing...
   }
 
-  public trackError(error: Error): void {
+  public trackError(error: Error | string): void {
     // Do your thing...
   }
 
@@ -68,9 +91,8 @@ import {MyCustomTelemetryClient} from './my-custom-telemetry-client';
 export function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
-    .plugin('aurelia-telemetry');
-
-  aurelia.container.registerSingleton(TelemetryClient, MyCustomTelemetryClient);
+    .plugin('aurelia-telemetry', (c: ConfigurationBuilder) => { c.useDefault(); })
+    .singleton(TelemetryClient, MyCustomTelemetryClient);
 
   aurelia.start().then(() => aurelia.setRoot());
 }
@@ -79,9 +101,9 @@ export function configure(aurelia: Aurelia) {
 ## Implementation plugins
 
 * [Application Insights](https://github.com/manuel-guilbault/aurelia-telemetry-application-insights)
-* Google Analytics (TODO)
+* [Google Analytics](https://github.com/manuel-guilbault/aurelia-telemetry-google-analytics)
 * Piwik (TODO)
-* ...
+* Logstash (TODO)
 
 ## Features
 
@@ -103,16 +125,15 @@ the navigation error.
 
 ### Event tracking
 
-Using `aurelia-telemetry`'s `trackEvent` binding behavior, you can easily make event
-handlers of any DOM element send custom event trackings:
+Using `aurelia-telemetry`'s `trackEvent` binding behavior, you can easily make any `.delegate`,
+`.trigger`, or `.call` bindings send custom event trackings:
 
 ```html
-<button click.delegate="doSomething() & trackEvent:'my-custom-event':{ someProperty: 'a value' }">Action</button>
+<button click.delegate="doSomething() & trackEvent:'my-custom-event'">Action</button>
 ```
 
 Here, every time the button is clicked, `TelemetryClient`'s `trackEvent` method will be called
-and passed `'my-custom-event'` as the event name and `{ someProperty: 'a value' }` as additional
-properties.
+and passed `'my-custom-event'` as the event name.
 
 The event will be sent to the `TelemetryClient` *after* the `doSomething()` method is
 called. Additionally, if `doSomething()` returns a `Promise`, the call to `trackEvent` will
@@ -120,5 +141,13 @@ be performed only when the `Promise` is resolved. Thanks to this, you can make s
 events depending on a remote operation will be tracked only once the remote call completes
 successfully.
 
-The `trackEvent` binding behavior expects the event name as its first parameter, along with
-an optional object containing additional properties as its second parameter.
+Optionally, an object containing additional properties can also be passed as the binding
+behavior's second parameter:
+
+```html
+<button click.delegate="doSomething() & trackEvent:'my-custom-event':{ someProperty: 'a value' }">Action</button>
+```
+
+In such a case, the additional properties will also be passed to the underlying `TelemetryClient`'s `trackEvent` 
+method. Those properties can then be used by the client implementation, or not. It depends on the implementation
+you use.
