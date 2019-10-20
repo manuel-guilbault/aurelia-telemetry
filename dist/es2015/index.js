@@ -5,13 +5,13 @@ export * from './log-appender';
 export * from './page-view-tracker';
 export * from './telemetry-client';
 export * from './track-event-binding-behavior';
-import { LogManager } from 'aurelia-framework';
+import { LogManager, PLATFORM } from 'aurelia-framework';
 import { ConfigurationBuilderImpl } from './configuration';
 import { LogAppender } from './log-appender';
 import { GlobalErrorTracker } from './global-error-tracker';
 import { PageViewTracker } from './page-view-tracker';
 export function configure(aurelia, callback) {
-    aurelia.globalResources(['./track-event-binding-behavior']);
+    aurelia.globalResources(PLATFORM.moduleName['./track-event-binding-behavior']);
     var builder = new ConfigurationBuilderImpl();
     if (callback) {
         callback(builder);

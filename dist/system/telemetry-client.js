@@ -1,5 +1,6 @@
 System.register([], function (exports_1, context_1) {
     "use strict";
+    var warned, TelemetryClient;
     var __moduleName = context_1 && context_1.id;
     function warnNoImplementation() {
         if (!warned) {
@@ -7,12 +8,11 @@ System.register([], function (exports_1, context_1) {
             warned = true;
         }
     }
-    var warned, TelemetryClient;
     return {
         setters: [],
         execute: function () {
             warned = false;
-            TelemetryClient = (function () {
+            TelemetryClient = /** @class */ (function () {
                 function TelemetryClient() {
                 }
                 TelemetryClient.prototype.trackPageView = function (path) {

@@ -10,12 +10,13 @@ var __extends = (this && this.__extends) || (function () {
 })();
 define(["require", "exports", "aurelia-logging", "./telemetry-client"], function (require, exports, aurelia_logging_1, telemetry_client_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var levelMap = new Map();
     levelMap.set(aurelia_logging_1.logLevel.debug, 'DEBUG');
     levelMap.set(aurelia_logging_1.logLevel.info, 'INFO');
     levelMap.set(aurelia_logging_1.logLevel.warn, 'WARN');
     levelMap.set(aurelia_logging_1.logLevel.error, 'ERROR');
-    var DebugTelemetryClient = (function (_super) {
+    var DebugTelemetryClient = /** @class */ (function (_super) {
         __extends(DebugTelemetryClient, _super);
         function DebugTelemetryClient(console) {
             var _this = _super.call(this) || this;
@@ -36,8 +37,8 @@ define(["require", "exports", "aurelia-logging", "./telemetry-client"], function
             for (var _i = 2; _i < arguments.length; _i++) {
                 args[_i - 2] = arguments[_i];
             }
-            (_a = this.console).log.apply(_a, ["Log [" + levelMap.get(level) + "]: " + message].concat(args));
             var _a;
+            (_a = this.console).log.apply(_a, ["Log [" + levelMap.get(level) + "]: " + message].concat(args));
         };
         return DebugTelemetryClient;
     }(telemetry_client_1.TelemetryClient));

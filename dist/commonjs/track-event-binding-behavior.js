@@ -1,6 +1,7 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var telemetry_client_1 = require("./telemetry-client");
-var TrackEventBindingBehavior = (function () {
+var TrackEventBindingBehavior = /** @class */ (function () {
     function TrackEventBindingBehavior(telemetryClient) {
         this.telemetryClient = telemetryClient;
     }
@@ -20,7 +21,7 @@ var TrackEventBindingBehavior = (function () {
         binding.callSource = binding.standardCallSource;
         binding.standardCallSource = null;
     };
+    TrackEventBindingBehavior.inject = [telemetry_client_1.TelemetryClient];
     return TrackEventBindingBehavior;
 }());
-TrackEventBindingBehavior.inject = [telemetry_client_1.TelemetryClient];
 exports.TrackEventBindingBehavior = TrackEventBindingBehavior;

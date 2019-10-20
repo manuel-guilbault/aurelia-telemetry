@@ -1,7 +1,7 @@
 System.register(["./telemetry-client"], function (exports_1, context_1) {
     "use strict";
-    var __moduleName = context_1 && context_1.id;
     var telemetry_client_1, TrackEventBindingBehavior;
+    var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (telemetry_client_1_1) {
@@ -9,7 +9,7 @@ System.register(["./telemetry-client"], function (exports_1, context_1) {
             }
         ],
         execute: function () {
-            TrackEventBindingBehavior = (function () {
+            TrackEventBindingBehavior = /** @class */ (function () {
                 function TrackEventBindingBehavior(telemetryClient) {
                     this.telemetryClient = telemetryClient;
                 }
@@ -29,9 +29,9 @@ System.register(["./telemetry-client"], function (exports_1, context_1) {
                     binding.callSource = binding.standardCallSource;
                     binding.standardCallSource = null;
                 };
+                TrackEventBindingBehavior.inject = [telemetry_client_1.TelemetryClient];
                 return TrackEventBindingBehavior;
             }());
-            TrackEventBindingBehavior.inject = [telemetry_client_1.TelemetryClient];
             exports_1("TrackEventBindingBehavior", TrackEventBindingBehavior);
         }
     };

@@ -3,6 +3,7 @@ define(["require", "exports", "./configuration", "./debug-telemetry-client", "./
     function __export(m) {
         for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
     }
+    Object.defineProperty(exports, "__esModule", { value: true });
     __export(configuration_1);
     __export(debug_telemetry_client_1);
     __export(global_error_tracker_1);
@@ -11,7 +12,7 @@ define(["require", "exports", "./configuration", "./debug-telemetry-client", "./
     __export(telemetry_client_1);
     __export(track_event_binding_behavior_1);
     function configure(aurelia, callback) {
-        aurelia.globalResources(['./track-event-binding-behavior']);
+        aurelia.globalResources(aurelia_framework_1.PLATFORM.moduleName['./track-event-binding-behavior']);
         var builder = new configuration_2.ConfigurationBuilderImpl();
         if (callback) {
             callback(builder);

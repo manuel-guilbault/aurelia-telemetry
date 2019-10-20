@@ -1,5 +1,6 @@
 "use strict";
-var ConfigurationBuilderImpl = (function () {
+Object.defineProperty(exports, "__esModule", { value: true });
+var ConfigurationBuilderImpl = /** @class */ (function () {
     function ConfigurationBuilderImpl() {
         this.doTrackLogs = false;
         this.doTrackGlobalErrors = false;

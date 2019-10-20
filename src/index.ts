@@ -6,14 +6,14 @@ export * from './page-view-tracker';
 export * from './telemetry-client';
 export * from './track-event-binding-behavior';
 
-import {FrameworkConfiguration, LogManager} from 'aurelia-framework';
+import {FrameworkConfiguration, LogManager, PLATFORM} from 'aurelia-framework';
 import {ConfigurationBuilder, ConfigurationBuilderImpl} from './configuration';
 import {LogAppender} from './log-appender';
 import {GlobalErrorTracker} from './global-error-tracker';
 import {PageViewTracker} from './page-view-tracker';
 
 export function configure(aurelia: FrameworkConfiguration, callback?: ((c: ConfigurationBuilder) => void)) {
-  aurelia.globalResources(['./track-event-binding-behavior']);
+  aurelia.globalResources(PLATFORM.moduleName['./track-event-binding-behavior']);
   
   const builder = new ConfigurationBuilderImpl();
   if (callback) {

@@ -1,7 +1,7 @@
 System.register(["aurelia-event-aggregator", "./telemetry-client"], function (exports_1, context_1) {
     "use strict";
-    var __moduleName = context_1 && context_1.id;
     var aurelia_event_aggregator_1, telemetry_client_1, PageViewTracker;
+    var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (aurelia_event_aggregator_1_1) {
@@ -12,7 +12,7 @@ System.register(["aurelia-event-aggregator", "./telemetry-client"], function (ex
             }
         ],
         execute: function () {
-            PageViewTracker = (function () {
+            PageViewTracker = /** @class */ (function () {
                 function PageViewTracker(eventAggregator, telemetryClient) {
                     var _this = this;
                     this.eventAggregator = eventAggregator;
@@ -35,9 +35,9 @@ System.register(["aurelia-event-aggregator", "./telemetry-client"], function (ex
                     this.eventSubscriptions.forEach(function (s) { return s.dispose(); });
                     this.eventSubscriptions = [];
                 };
+                PageViewTracker.inject = [aurelia_event_aggregator_1.EventAggregator, telemetry_client_1.TelemetryClient];
                 return PageViewTracker;
             }());
-            PageViewTracker.inject = [aurelia_event_aggregator_1.EventAggregator, telemetry_client_1.TelemetryClient];
             exports_1("PageViewTracker", PageViewTracker);
         }
     };
