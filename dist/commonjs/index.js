@@ -16,7 +16,7 @@ var log_appender_1 = require("./log-appender");
 var global_error_tracker_1 = require("./global-error-tracker");
 var page_view_tracker_1 = require("./page-view-tracker");
 function configure(aurelia, callback) {
-    aurelia.globalResources(aurelia_framework_1.PLATFORM.moduleName['./track-event-binding-behavior']);
+    aurelia.globalResources([aurelia_framework_1.PLATFORM.moduleName('./track-event-binding-behavior')]);
     var builder = new configuration_1.ConfigurationBuilderImpl();
     if (callback) {
         callback(builder);

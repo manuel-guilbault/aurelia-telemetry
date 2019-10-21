@@ -11,7 +11,7 @@ import { LogAppender } from './log-appender';
 import { GlobalErrorTracker } from './global-error-tracker';
 import { PageViewTracker } from './page-view-tracker';
 export function configure(aurelia, callback) {
-    aurelia.globalResources(PLATFORM.moduleName['./track-event-binding-behavior']);
+    aurelia.globalResources([PLATFORM.moduleName('./track-event-binding-behavior')]);
     var builder = new ConfigurationBuilderImpl();
     if (callback) {
         callback(builder);
