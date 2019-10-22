@@ -1,5 +1,5 @@
 import { TelemetryClient } from './telemetry-client';
-var TrackEventBindingBehavior = (function () {
+var TrackEventBindingBehavior = /** @class */ (function () {
     function TrackEventBindingBehavior(telemetryClient) {
         this.telemetryClient = telemetryClient;
     }
@@ -19,7 +19,7 @@ var TrackEventBindingBehavior = (function () {
         binding.callSource = binding.standardCallSource;
         binding.standardCallSource = null;
     };
+    TrackEventBindingBehavior.inject = [TelemetryClient];
     return TrackEventBindingBehavior;
 }());
 export { TrackEventBindingBehavior };
-TrackEventBindingBehavior.inject = [TelemetryClient];

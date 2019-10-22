@@ -1,5 +1,5 @@
 import { TelemetryClient } from './telemetry-client';
-var GlobalErrorTracker = (function () {
+var GlobalErrorTracker = /** @class */ (function () {
     function GlobalErrorTracker(telemetryClient, w) {
         var _this = this;
         this.telemetryClient = telemetryClient;
@@ -18,7 +18,7 @@ var GlobalErrorTracker = (function () {
             this.window.removeEventListener('error', this.onUnhandledError);
         }
     };
+    GlobalErrorTracker.inject = [TelemetryClient];
     return GlobalErrorTracker;
 }());
 export { GlobalErrorTracker };
-GlobalErrorTracker.inject = [TelemetryClient];

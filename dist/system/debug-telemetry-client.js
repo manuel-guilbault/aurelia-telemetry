@@ -10,8 +10,8 @@ System.register(["aurelia-logging", "./telemetry-client"], function (exports_1, 
             d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
         };
     })();
-    var __moduleName = context_1 && context_1.id;
     var aurelia_logging_1, telemetry_client_1, levelMap, DebugTelemetryClient;
+    var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (aurelia_logging_1_1) {
@@ -27,7 +27,7 @@ System.register(["aurelia-logging", "./telemetry-client"], function (exports_1, 
             levelMap.set(aurelia_logging_1.logLevel.info, 'INFO');
             levelMap.set(aurelia_logging_1.logLevel.warn, 'WARN');
             levelMap.set(aurelia_logging_1.logLevel.error, 'ERROR');
-            DebugTelemetryClient = (function (_super) {
+            DebugTelemetryClient = /** @class */ (function (_super) {
                 __extends(DebugTelemetryClient, _super);
                 function DebugTelemetryClient(console) {
                     var _this = _super.call(this) || this;
@@ -48,8 +48,8 @@ System.register(["aurelia-logging", "./telemetry-client"], function (exports_1, 
                     for (var _i = 2; _i < arguments.length; _i++) {
                         args[_i - 2] = arguments[_i];
                     }
-                    (_a = this.console).log.apply(_a, ["Log [" + levelMap.get(level) + "]: " + message].concat(args));
                     var _a;
+                    (_a = this.console).log.apply(_a, ["Log [" + levelMap.get(level) + "]: " + message].concat(args));
                 };
                 return DebugTelemetryClient;
             }(telemetry_client_1.TelemetryClient));

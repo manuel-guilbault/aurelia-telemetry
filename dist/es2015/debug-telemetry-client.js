@@ -15,7 +15,7 @@ levelMap.set(logLevel.debug, 'DEBUG');
 levelMap.set(logLevel.info, 'INFO');
 levelMap.set(logLevel.warn, 'WARN');
 levelMap.set(logLevel.error, 'ERROR');
-var DebugTelemetryClient = (function (_super) {
+var DebugTelemetryClient = /** @class */ (function (_super) {
     __extends(DebugTelemetryClient, _super);
     function DebugTelemetryClient(console) {
         var _this = _super.call(this) || this;
@@ -36,8 +36,8 @@ var DebugTelemetryClient = (function (_super) {
         for (var _i = 2; _i < arguments.length; _i++) {
             args[_i - 2] = arguments[_i];
         }
-        (_a = this.console).log.apply(_a, ["Log [" + levelMap.get(level) + "]: " + message].concat(args));
         var _a;
+        (_a = this.console).log.apply(_a, ["Log [" + levelMap.get(level) + "]: " + message].concat(args));
     };
     return DebugTelemetryClient;
 }(TelemetryClient));

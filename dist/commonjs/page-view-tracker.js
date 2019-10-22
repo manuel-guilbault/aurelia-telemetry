@@ -1,7 +1,8 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var aurelia_event_aggregator_1 = require("aurelia-event-aggregator");
 var telemetry_client_1 = require("./telemetry-client");
-var PageViewTracker = (function () {
+var PageViewTracker = /** @class */ (function () {
     function PageViewTracker(eventAggregator, telemetryClient) {
         var _this = this;
         this.eventAggregator = eventAggregator;
@@ -24,7 +25,7 @@ var PageViewTracker = (function () {
         this.eventSubscriptions.forEach(function (s) { return s.dispose(); });
         this.eventSubscriptions = [];
     };
+    PageViewTracker.inject = [aurelia_event_aggregator_1.EventAggregator, telemetry_client_1.TelemetryClient];
     return PageViewTracker;
 }());
-PageViewTracker.inject = [aurelia_event_aggregator_1.EventAggregator, telemetry_client_1.TelemetryClient];
 exports.PageViewTracker = PageViewTracker;

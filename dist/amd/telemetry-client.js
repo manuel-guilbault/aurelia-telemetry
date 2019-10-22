@@ -1,5 +1,6 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var warned = false;
     function warnNoImplementation() {
         if (!warned) {
@@ -7,7 +8,7 @@ define(["require", "exports"], function (require, exports) {
             warned = true;
         }
     }
-    var TelemetryClient = (function () {
+    var TelemetryClient = /** @class */ (function () {
         function TelemetryClient() {
         }
         TelemetryClient.prototype.trackPageView = function (path) {

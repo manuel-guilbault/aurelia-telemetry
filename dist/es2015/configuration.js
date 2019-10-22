@@ -1,4 +1,4 @@
-var ConfigurationBuilderImpl = (function () {
+var ConfigurationBuilderImpl = /** @class */ (function () {
     function ConfigurationBuilderImpl() {
         this.doTrackLogs = false;
         this.doTrackGlobalErrors = false;

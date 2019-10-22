@@ -1,11 +1,11 @@
 System.register([], function (exports_1, context_1) {
     "use strict";
-    var __moduleName = context_1 && context_1.id;
     var ConfigurationBuilderImpl;
+    var __moduleName = context_1 && context_1.id;
     return {
         setters: [],
         execute: function () {
-            ConfigurationBuilderImpl = (function () {
+            ConfigurationBuilderImpl = /** @class */ (function () {
                 function ConfigurationBuilderImpl() {
                     this.doTrackLogs = false;
                     this.doTrackGlobalErrors = false;

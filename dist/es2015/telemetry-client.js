@@ -5,7 +5,7 @@ function warnNoImplementation() {
         warned = true;
     }
 }
-var TelemetryClient = (function () {
+var TelemetryClient = /** @class */ (function () {
     function TelemetryClient() {
     }
     TelemetryClient.prototype.trackPageView = function (path) {
