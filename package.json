@@ -53,7 +53,7 @@
       "aurelia-logging": "^1.2.0",
       "aurelia-metadata": "^1.0.3",
       "aurelia-pal": "^1.2.0",
-      "aurelia-path": "^1.1.1",
+      "aurelia-path": "^1.1.7",
       "aurelia-task-queue": "^1.1.0",
       "aurelia-templating": "^1.2.0",
       "aurelia-templating-binding": "^1.2.0"
@@ -67,7 +67,7 @@
       "aurelia-logging": "^1.2.0",
       "aurelia-metadata": "^1.0.3",
       "aurelia-pal": "^1.2.0",
-      "aurelia-path": "^1.1.1",
+      "aurelia-path": "^1.1.7",
       "aurelia-task-queue": "^1.1.0",
       "aurelia-templating": "^1.2.0",
       "aurelia-templating-binding": "^1.2.0"
@@ -83,7 +83,7 @@
     "aurelia-logging": "^1.2.0",
     "aurelia-metadata": "^1.0.3",
     "aurelia-pal": "^1.2.0",
-    "aurelia-path": "^1.1.1",
+    "aurelia-path": "^1.1.7",
     "aurelia-task-queue": "^1.1.0",
     "aurelia-templating": "^1.2.0",
     "aurelia-templating-binding": "^1.2.0"
